@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Análise - Cesta Básica</title>
+    <link rel="stylesheet" href="painel.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Painel de Análise de Preços</h1>
+        <p>Dados atualizados em tempo real a partir das coletas.</p>
+    </header>
+
+    <main class="dashboard-grid">
+        <div class="card kpi-card">
+            <h2>Custo Total da Cesta</h2>
+            <p id="total-cost">Calculando...</p>
+        </div>
+
+        <div class="card kpi-card">
+            <h2>Preços Coletados</h2>
+            <p id="total-entries">Calculando...</p>
+        </div>
+
+        <div class="card chart-card-large">
+            <h3>Composição de Custos por Produto</h3>
+            <canvas id="composition-chart"></canvas>
+        </div>
+
+        <div class="card chart-card-large">
+            <h3>Preço Médio por Zona</h3>
+            <canvas id="zone-chart"></canvas>
+        </div>
+        
+        <div class="card download-card">
+            <h3>Exportar Dados</h3>
+            <p>Baixe todos os dados consolidados em um único arquivo CSV.</p>
+            <button id="download-csv-btn" class="btn-download">Descarregar Dados (CSV)</button>
+        </div>
+    </main>
+
+    <script src="painel.js"></script>
+</body>
+</html>

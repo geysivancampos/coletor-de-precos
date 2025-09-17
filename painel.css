@@ -1,0 +1,100 @@
+:root {
+    --primary-color: #005a9c;
+    --secondary-color: #2a9d8f;
+    --background-color: #f4f4f9;
+    --text-color: #333;
+    --white-color: #fff;
+    --border-color: #ddd;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+header {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    padding: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+header p {
+    margin: 0.5rem 0 0;
+    opacity: 0.9;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+    padding: 0 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: var(--white-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.kpi-card {
+    text-align: center;
+}
+
+.kpi-card h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.kpi-card p {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin: 0.5rem 0 0;
+}
+
+.chart-card-large {
+    grid-column: span 2; /* Faz o card do gráfico ocupar mais espaço */
+}
+
+.download-card {
+    grid-column: span 2;
+    text-align: center;
+}
+
+.btn-download {
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-download:hover {
+    background-color: #217a6f;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+   .chart-card-large,.download-card {
+        grid-column: span 1;
+    }
+}

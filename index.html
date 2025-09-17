@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coletor de Preços - Cesta Básica</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Coletor de Preços da Cesta Básica</h1>
+    </header>
+    <a href="painel.html" class="link-painel">Ver Painel de Análise →</a>
+    <main>
+        <section class="form-section">
+            <h2>Adicionar Novo Preço</h2>
+            <form id="price-form">
+                <div class="form-group">
+                    <label for="produto">Produto:</label>
+                    <select id="produto" name="produto" required>
+                        <option value="" disabled selected>Selecione um produto</option>
+                        <option value="Café">Café (300 g)</option>
+                        <option value="Óleo">Óleo (750 g)</option>
+                        <option value="Açucar">Açucar (3 kg)</option>
+                        <option value="Manteiga">Manteiga (750 g)</option>
+                        <option value="Farinha">Farinha (3 kg)</option>
+                        <option value="Arroz">Arroz (3,6 kg)</option>
+                        <option value="Feijão">Feijão (4,5 kg)</option>
+                        <option value="Leite">Leite (6 L)</option>
+                        <option value="Banana">Banana (90 unid)</option>
+                        <option value="Tomate">Tomate (12 kg)</option>
+                        <option value="Pão">Pão (6 kg)</option>
+                        <option value="Carne Bovina">Carne Bovina (6 kg)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="zona">Zona:</label>
+                    <select id="zona" name="zona" required>
+                        <option value="" disabled selected>Selecione a zona</option>
+                        <option value="Norte">Norte</option>
+                        <option value="Sul">Sul</option>
+                        <option value="Sudeste">Sudeste</option>
+                        <option value="Leste">Leste</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="questionario">Questionário:</label>
+                    <select id="questionario" name="questionario" required>
+                        <option value="" disabled selected>Selecione o questionário</option>
+                        <option value="QUEST 1">QUEST 1</option>
+                        <option value="QUEST 2">QUEST 2</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="preco">Preço (R$):</label>
+                    <input type="number" id="preco" name="preco" step="0.01" min="0" placeholder="Ex: 12.99" required>
+                </div>
+
+                <button type="submit" class="btn-add">Adicionar Preço</button>
+            </form>
+        </section>
+
+        <section class="data-section">
+            <h2>Dados Coletados</h2>
+            <div class="table-container">
+                <table id="data-table">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Zona</th>
+                            <th>Questionário</th>
+                            <th>Preço (R$)</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+            
+            <div class="upload-section">
+                <hr>
+                <h3>Enviar Dados para o Painel</h3>
+                <div class="form-group">
+                    <label for="github-token">GitHub Personal Access Token:</label>
+                    <input type="password" id="github-token" placeholder="Cole seu token aqui" required>
+                    <small>Seu token é usado para dar permissão de escrita no repositório e não é salvo.</small>
+                </div>
+                <button type="button" id="upload-btn" class="btn-upload">Enviar para o Painel</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
