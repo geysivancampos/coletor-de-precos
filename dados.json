@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "produto": "Óleo",
+    "zona": "Norte",
+    "questionario": "QUEST 1",
+    "preco": 8.99,
+    "quantidade": "750 g"
+  },
+  {
+    "produto": "Café",
+    "zona": "Sul",
+    "questionario": "QUEST 1",
+    "preco": 14.8,
+    "quantidade": "300 g"
+  },
+  {
+    "produto": "Açucar",
+    "zona": "Norte",
+    "questionario": "QUEST 2",
+    "preco": 4.99,
+    "quantidade": "3 kg"
+  },
+  {
+    "produto": "Feijão",
+    "zona": "Sul",
+    "questionario": "QUEST 2",
+    "preco": 8,
+    "quantidade": "4,5 kg"
+  }
+]
