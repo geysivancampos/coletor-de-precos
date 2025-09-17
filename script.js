@@ -1,23 +1,24 @@
 // Aguarda o carregamento completo do DOM antes de executar o script
 document.addEventListener('DOMContentLoaded', () => {
-    // --- CONFIGURAÇÃO DO GITHUB ---
+    // --- INÍCIO DA CONFIGURAÇÃO DO GITHUB ---
     const GITHUB_USER = 'geysivancampos'; // Seu nome de usuário no GitHub
     const GITHUB_REPO = 'coletor-de-precos'; // O nome do seu repositório
     const DATA_FILE_PATH = 'dados.json'; // O arquivo que guardará os dados
+    // --- FIM DA CONFIGURAÇÃO DO GITHUB ---
 
-    // --- ELEMENTOS DO DOM ---
+    // --- SELEÇÃO DOS ELEMENTOS DO DOM ---
     const form = document.getElementById('price-form');
     const formButton = form.querySelector('button[type="submit"]');
     const tableBody = document.querySelector('#data-table tbody');
     const uploadBtn = document.getElementById('upload-btn');
     const githubTokenInput = document.getElementById('github-token');
-    const statusDiv = document.getElementById('status'); // div para mensagens de status
 
-    // --- VARIÁVEIS ---
+    // Array para armazenar os dados coletados
     let collectedData = [];
+    // Variável para rastrear a edição
     let editingIndex = null;
 
-    // --- QUANTIDADES PADRÃO DOS PRODUTOS ---
+    // Mapeamento de produtos para suas quantidades
     const productQuantities = {
         "Café": "300 g",
         "Óleo": "750 g",
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "Carne Bovina": "6 kg"
     };
 
-    // --- FUNÇÕES DE ARMAZENAMENTO ---
+    // Função para carregar dados do localStorage
     function loadDataFromStorage() {
         const savedData = localStorage.getItem('priceData');
         if (savedData) {
@@ -42,13 +43,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Função para salvar os dados no localStorage
     function saveDataToStorage() {
         localStorage.setItem('priceData', JSON.stringify(collectedData));
     }
 
-    // --- FUNÇÃO PARA RENDERIZAR A TABELA ---
+    // Função para desenhar a tabela na tela
     function renderTable() {
-        tableBody.innerHTML = '';
+        tableBody.innerHTML = ''; // Limpa a tabela antes de redesenhar
 
         collectedData.forEach((entry, index) => {
             const row = document.createElement('tr');
@@ -67,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- FORMULÁRIO (ADICIONAR / EDITAR) ---
+    // Manipulador do evento de submissão do formulário (Adicionar ou Atualizar)
     form.addEventListener('submit', (event) => {
         event.preventDefault();
 
@@ -100,9 +102,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('produto').focus();
     });
 
-    // --- EDITAR / EXCLUIR ---
+    // Manipulador para os cliques nos botões de Editar e Excluir
     tableBody.addEventListener('click', (event) => {
         const target = event.target;
+        if (!target.dataset.index) return; // Sai se não clicou em um botão com data-index
+
         const index = parseInt(target.dataset.index, 10);
 
         if (target.classList.contains('btn-delete')) {
@@ -126,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- UPLOAD PARA O GITHUB ---
+    // Função para fazer o upload dos dados para o GitHub
     async function uploadToGitHub() {
         const token = githubTokenInput.value.trim();
         if (!token) {
@@ -141,23 +145,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${DATA_FILE_PATH}`;
         const content = btoa(unescape(encodeURIComponent(JSON.stringify(collectedData, null, 2))));
-
+        
         uploadBtn.textContent = 'Enviando...';
         uploadBtn.disabled = true;
-        statusDiv.textContent = 'Enviando dados para o GitHub...';
 
         try {
+            // Tenta obter o SHA do arquivo para garantir que estamos atualizando a versão mais recente
             let sha = undefined;
             try {
-                const getFileResponse = await fetch(apiUrl, {
-                    headers: { 'Authorization': `token ${token}` }
-                });
+                const getFileResponse = await fetch(apiUrl, { headers: { 'Authorization': `token ${token}` } });
                 if (getFileResponse.ok) {
                     const fileData = await getFileResponse.json();
                     sha = fileData.sha;
                 }
             } catch (e) {
-                console.warn('Arquivo ainda não existe. Será criado novo.');
+                console.warn('Não foi possível obter o SHA. Tentando criar um novo arquivo.');
             }
 
             const body = {
@@ -176,8 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
-                const fileUrl = `https://github.com/${GITHUB_USER}/${GITHUB_REPO}/blob/main/${DATA_FILE_PATH}`;
-                statusDiv.innerHTML = `✅ Dados enviados com sucesso! <a href="${fileUrl}" target="_blank">Ver no GitHub</a>`;
+                alert('Dados enviados com sucesso para o painel!');
             } else {
                 const errorData = await response.json();
                 throw new Error(`Erro ${response.status}: ${errorData.message}`);
@@ -185,16 +186,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Falha no upload para o GitHub:', error);
-            statusDiv.textContent = `❌ Erro ao enviar dados: ${error.message}`;
+            alert(`Ocorreu um erro ao enviar os dados: ${error.message}`);
         } finally {
             uploadBtn.textContent = 'Enviar para o Painel';
             uploadBtn.disabled = false;
         }
     }
 
-    // --- EVENTOS ---
+    // Adiciona o evento de clique ao botão de upload
     uploadBtn.addEventListener('click', uploadToGitHub);
 
-    // --- INICIALIZAÇÃO ---
+    // Carrega os dados salvos do localStorage ao iniciar
     loadDataFromStorage();
 });
