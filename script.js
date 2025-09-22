@@ -19,20 +19,24 @@ document.addEventListener('DOMContentLoaded', () => {
     let editingIndex = null;
 
     // Mapeamento de produtos para suas quantidades
-    const productQuantities = {
-        "Café": "300 g",
-        "Óleo": "750 g",
-        "Açucar": "3 kg",
-        "Manteiga": "750 g",
-        "Farinha": "3 kg",
-        "Arroz": "3,6 kg",
-        "Feijão": "4,5 kg",
-        "Leite": "6 L",
-        "Banana": "90 unid",
-        "Tomate": "12 kg",
-        "Pão": "6 kg",
-        "Carne Bovina": "6 kg"
-    };
+const productQuantities = {
+    "Carne de Sol": "1 kg",
+    "Cajuína": "500 ml",
+    "Mel": "500 g",
+    "Bode": "1 kg",
+    "Carneiro": "1 kg",
+    "Panelada": "1 kg",
+    "Sarapatel": "Cabeça",
+    "Doce de Caju": "500 g",
+    "Galinha": "1 kg",
+    "Doce de Buriti": "1 kg",
+    "Goma": "1 kg",
+    "Macaxeira": "1 kg",
+    "Feijão Verde": "1 kg",
+    "Mão de Vaca": "5 kg",
+    "Cachaça": "960 ml",
+    "Massa de Milho": "1 kg"
+};
 
     // Função para carregar dados do localStorage
     function loadDataFromStorage() {
